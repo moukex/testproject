@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserRoleEntityMapper" >
+  <resultMap id="BaseResultMap" type="UserRoleEntity" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="t_r_id" property="tRId" jdbcType="BIGINT" />
+  </resultMap>
+</mapper>

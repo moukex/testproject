@@ -1,0 +1,6 @@
+spring:
+    datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://thinmoon.mysql.rds.aliyuncs.com/db_system
+      username: root
+      password: root1234
