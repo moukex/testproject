@@ -1,10 +1,8 @@
 package com.boss.xtrain.system.center.service.service;
 
-import com.boss.xtrain.system.center.dao.entity.PositionEntity;
+import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
+import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
-import com.boss.xtrain.system.center.pojo.dto.position.PositionDTO;
-import com.boss.xtrain.system.center.pojo.dto.user.UserDTO;
-import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
 
 import java.util.List;
 
@@ -18,22 +16,24 @@ public interface UserService {
     int save(UserEntity entity);
     int delete(UserEntity entity);
     int update(UserEntity entity);
-
-
     /**
      * 通过用户id获取用户
-     ** @param query 用户对象
+     ** @param id 用户id
+     * @return User 用户对象
+     **/
+    UserEntity getUserById(String id);
+    /**
+     * 通过条件获取用户
+     ** @param query 条件
      * @return User 用户对象
      **/
     List<UserEntity> queryByCondition(UserEntity query);
-
     /**
-     * 通过用户id获取用户
+     * 通过用户名获取用户
      ** @param name 用户名称
      * @return User 用户对象
      **/
-    UserEntity getUserByCode(String name);
-
+    UserEntity getUserByName(String name);
     /**
      * 通过用户编码获取jwt的token并将token存到redis中
      * @param code 用户code
