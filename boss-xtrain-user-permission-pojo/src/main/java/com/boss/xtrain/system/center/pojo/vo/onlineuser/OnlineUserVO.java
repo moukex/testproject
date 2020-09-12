@@ -16,8 +16,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OnlineUserVO {
-    /** 用户id */
-    private long userId;
+    /** 用户工号 */
+    private String userCode;
 
     /** 用户名称 */
     private long name;
@@ -26,11 +26,11 @@ public class OnlineUserVO {
     private String ip;
 
     /** 上线时间 */
+    private String openlineTime;
+
+    /** 下线时间 */
     private String offlineTime;
 
-    /** 上线时间 */
-    private String stopTime;
-
-    /** 在线时间 */
-    private String onlineTime;
+    /** 状态*/
+    private int status;
 }

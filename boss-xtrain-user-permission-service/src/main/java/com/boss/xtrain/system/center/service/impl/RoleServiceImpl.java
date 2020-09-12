@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: Administrator
+ * @Author: moukex
  * @Description: 角色Service实现类
  * @Date: 2020/9/7 16:01
  * @Version: 1.0
@@ -70,5 +70,29 @@ public class RoleServiceImpl implements RoleService {
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
 
+    }
+    /**
+     * @Author moukex
+     * @Version  1.0
+     * @Description 根据用户id查询角色名
+     * @param userId 用户id
+     * @Return list 角色名列表
+     */
+    @Override
+    public List<String> queryNameRoleByUserId(Long userId) {
+        Example example = new Example(UserRoleEntity.class);
+        example.createCriteria().andEqualTo("id", userId);
+        try{
+            List<UserRoleEntity> URlist= userRoleEntityMapper.selectByExample(example);
+            List<String> roles=new ArrayList<>();
+            for(UserRoleEntity UR :URlist){
+                Long roleid = UR.getTRId();
+                roles.add(getRolebyId(roleid).getName());
+            }
+            return roles;
+        }
+        catch (Exception e){
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+        }
     }
 }

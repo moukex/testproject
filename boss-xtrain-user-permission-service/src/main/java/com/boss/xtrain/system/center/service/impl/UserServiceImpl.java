@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
      * @throw  ServiceException 查表错误
      */
     @Override
-    public UserEntity getUserById(String id) {
+    public UserEntity getUserById(Long id) {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("id", id);
         try{

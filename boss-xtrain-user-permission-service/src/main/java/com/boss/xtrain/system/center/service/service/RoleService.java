@@ -25,4 +25,12 @@ public interface RoleService {
      * @return List 资源列表
      **/
     List<RoleEntity> queryRoleByUserId(Long userId);
+
+    /**
+     * 通过用户id获取角色名称列表
+     ** @param userId 用户Id
+     * @return List 资源列表
+     **/
+    List<String> queryNameRoleByUserId(Long userId);
+
 }

@@ -1,6 +1,14 @@
 spring:
-    datasource:
+  datasource:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://thinmoon.mysql.rds.aliyuncs.com/db_system
       username: root
       password: root1234
+  application:
+    # 服务名
+    name: service-user-permission
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册中心
+        server-addr: 101.37.90.167:8848

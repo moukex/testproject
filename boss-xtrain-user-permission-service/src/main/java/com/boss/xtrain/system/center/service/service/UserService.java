@@ -21,7 +21,7 @@ public interface UserService {
      ** @param id 用户id
      * @return User 用户对象
      **/
-    UserEntity getUserById(String id);
+    UserEntity getUserById(Long id);
     /**
      * 通过条件获取用户
      ** @param query 条件

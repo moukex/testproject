@@ -1,6 +1,7 @@
 package com.boss.xtrain.system.controller;
 
 import com.boss.xtrain.api.annotation.ApiLog;
+import com.boss.xtrain.data.convertion.base.controller.AbstractController;
 import com.boss.xtrain.data.convertion.common.CommonRequest;
 import com.boss.xtrain.data.convertion.common.ResponseHeader;
 import com.boss.xtrain.data.convertion.common.CommonResponse;
@@ -18,6 +19,7 @@ import com.boss.xtrain.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,10 +32,11 @@ import java.util.Map;
  * @Date 2020/8/29 15:07
  * @Version 1.0
  */
-@Api(tags="APP用户注册Controller")
+@Api(tags="用户认证与授权controller")
 @Slf4j
 @RestController
-public class UserController {
+@CrossOrigin
+public class UserController extends AbstractController {
 
 
     @Autowired
@@ -53,6 +56,7 @@ public class UserController {
     @ApiLog
     @PostMapping("/checklogin")
     public CommonResponse checkLogin(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
+        log.info(commonRequest.toString());
         UserLoginDTO user = commonRequest.getBody();
         String name = user.getUsername();
         String password = user.getPassword();
@@ -61,12 +65,7 @@ public class UserController {
             Map<String, Object> map = new HashMap<>(8);
             map.put("userId", usercheck.getId());
             map.put("token",userService.createJwt(name));
-            ResponseHeader responseHead = new ResponseHeader();
-            responseHead.setVersion("v1.0");
-            responseHead.setCode("200");
-            responseHead.setMessage("认证服务");
-            responseHead.setEncryptFlag(0);
-            return new CommonResponse(responseHead,map);
+            return buildSuccCommonResponse(map);
         }else{
             throw new BusinessException(AuthenticationCode.AUTHENTICATION_CODE_USER_PASSWORD_INVALID_ERROR,new Throwable("abc") );
         }
@@ -80,17 +79,19 @@ public class UserController {
      */
     @ApiLog
     @GetMapping("/getinfo")
-    public CommonResponse info(){
-        Map<String, String> map = new HashMap<>(8);
-        map.put("roles","[admin]");
-        map.put("name","admin");
-        map.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        ResponseHeader responseHead = new ResponseHeader();
-        responseHead.setVersion("v1.0");
-        responseHead.setCode("200");
-        responseHead.setMessage("成功");
-        responseHead.setEncryptFlag(0);
-        return new CommonResponse(responseHead,map);
+    public CommonResponse info(String token){
+        Map map = new HashMap<>();
+        map=JwtUtils.parseJWT(token);
+        Long id=Long.valueOf(String.valueOf(map.get("userId")));
+        List<String> roles=new ArrayList<>();
+        roles=roleService.queryNameRoleByUserId(id);
+        String name=userService.getUserById(id).getName();
+        Map<String, Object> remap = new HashMap<>(8);
+        remap.put("roles",roles);
+        remap.put("name",name);
+        remap.put("id",id);
+        remap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        return buildSuccCommonResponse(remap);
     }
     /**
      * @Author moukex
@@ -102,7 +103,6 @@ public class UserController {
     @ApiLog
     @GetMapping("/getlist")
     public  CommonResponse checkList(String token){
-        log.info(token);
         Map map = new HashMap<>();
         map=JwtUtils.parseJWT(token);
         Long id=Long.valueOf(String.valueOf(map.get("userId")));
@@ -119,12 +119,7 @@ public class UserController {
                 resourcelist.set(res.getNumber(),0);
             }
         }
-        ResponseHeader responseHead = new ResponseHeader();
-        responseHead.setVersion("v1.0");
-        responseHead.setCode("200");
-        responseHead.setMessage("成功");
-        responseHead.setEncryptFlag(0);
-        return new CommonResponse(responseHead,resourcelist);
+        return buildSuccCommonResponse(resourcelist);
     }
 
     /**
@@ -137,14 +132,9 @@ public class UserController {
     @ApiLog
     @PostMapping("/logout")
     public CommonResponse logout(){
-        ResponseHeader responseHead = new ResponseHeader();
-        responseHead.setVersion("v1.0");
-        responseHead.setCode("200");
-        responseHead.setMessage("成功");
-        responseHead.setEncryptFlag(0);
         Map<String, String> map = new HashMap<>(8);
         map.put("message","success");
-        return new CommonResponse(responseHead,map);
+        return buildSuccCommonResponse(map);
     }
 
 }
