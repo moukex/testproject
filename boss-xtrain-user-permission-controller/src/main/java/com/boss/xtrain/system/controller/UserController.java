@@ -3,7 +3,6 @@ package com.boss.xtrain.system.controller;
 import com.boss.xtrain.api.annotation.ApiLog;
 import com.boss.xtrain.data.convertion.base.controller.AbstractController;
 import com.boss.xtrain.data.convertion.common.CommonRequest;
-import com.boss.xtrain.data.convertion.common.ResponseHeader;
 import com.boss.xtrain.data.convertion.common.CommonResponse;
 import com.boss.xtrain.exception.code.enums.system.AuthenticationCode;
 import com.boss.xtrain.exception.type.BusinessException;
@@ -11,15 +10,11 @@ import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
 import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
-import com.boss.xtrain.system.center.service.impl.ResourceServiceImpl;
-import com.boss.xtrain.system.center.service.impl.RoleServiceImpl;
-import com.boss.xtrain.system.center.service.impl.UserServiceImpl;
-import com.boss.xtrain.system.center.service.service.ResourceService;
+import com.boss.xtrain.system.center.service.impl.*;
 import com.boss.xtrain.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,6 +39,7 @@ public class UserController extends AbstractController {
     private RoleServiceImpl roleService;
     @Autowired
     private ResourceServiceImpl resourceService;
+
 
     /**
      * @Author moukex
@@ -106,32 +102,31 @@ public class UserController extends AbstractController {
      */
     @ApiLog
     @GetMapping("/getlist")
-    public  CommonResponse getList(String token){
+    public  CommonResponse getList(String token) {
         Map map = new HashMap<>();
-        map=JwtUtils.parseJWT(token);
-        Long id=Long.valueOf(String.valueOf(map.get("userId")));
-        List<RoleEntity> roles=new ArrayList<>();
-        List<ResourceEntity> resources=new ArrayList<>();
-        roles=roleService.queryRoleByUserId(id);
-        List<Integer> resourcelist= new ArrayList<>();
+        map = JwtUtils.parseJWT(token);
+        Long id = Long.valueOf(String.valueOf(map.get("userId")));
+        List<RoleEntity> roles = new ArrayList<>();
+        List<ResourceEntity> resources = new ArrayList<>();
+        roles = roleService.queryRoleByUserId(id);
+        List<Integer> resourcelist = new ArrayList<>();
+        log.info("------------------------------------------------------------------------");
+        List<ResourceEntity> newresources = new ArrayList<>();
+        newresources = resourceService.queryResourceByUserId(id);
         //初始化资源列表
-        for(int i=0;i<=30;i++){
+        for (int i = 0; i <= 30; i++) {
             resourcelist.add(1);
         }
-        //根据用户的角色获取资源列表
-        for(RoleEntity role:roles){
-            resources=resourceService.queryResourceByRoleId(role.getId());
-            for(ResourceEntity res:resources){
-                if(res!=null){
-                    resourcelist.set(res.getNumber(),0);
-                }else{
-                    log.info("res为空");
-                }
+        //根据资源列表初始化资源权限表
+        for (ResourceEntity res : newresources) {
+            if (res != null) {
+                resourcelist.set(res.getNumber(), 0);
+            } else {
+                log.info("res为空");
             }
         }
-        return buildSuccCommonResponse(resourcelist);
+            return buildSuccCommonResponse(resourcelist);
     }
-
     /**
      * @Author moukex
      * @Version  1.0

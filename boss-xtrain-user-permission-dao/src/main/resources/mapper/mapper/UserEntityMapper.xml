@@ -9,23 +9,9 @@
     <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="profile_picture" property="profilePicture" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="tel" property="tel" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="other" property="other" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="BIT" />
-    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
-    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
-    <result column="version" property="version" jdbcType="BIGINT" />
-    <result column="department" property="department" jdbcType="BIGINT" />
-    <result column="position" property="position" jdbcType="BIGINT" />
-    <result column="company_id" property="companyId" jdbcType="BIGINT" />
     <collection property="rolelist" column="id" select="selectRolebyUserId" ofType="list">
+      <collection property="resourcelist" column="id"  ofType="list">
+      </collection>
     </collection>
   </resultMap>
   <resultMap id="RoleMap" type="com.boss.xtrain.system.center.dao.entity.RoleEntity" >
@@ -45,9 +31,40 @@
     <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
     <result column="company_id" property="companyId" jdbcType="BIGINT" />
   </resultMap>
+  <resultMap id="ResourceMap" type="com.boss.xtrain.system.center.dao.entity.ResourceEntity" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="tenant_id" property="tenantId" jdbcType="BIGINT" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="open_img" property="openImg" jdbcType="VARCHAR" />
+    <result column="close_img" property="closeImg" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
+    <result column="leaf" property="leaf" jdbcType="TINYINT" />
+    <result column="action" property="action" jdbcType="TINYINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+  </resultMap>
 
   <select id="selectRolebyUserId" resultMap="RoleMap" parameterType="Long">
     select * from t_role,t_user,t_user_role where t_role.id=t_user_role.t_r_id and t_user.id=t_user_role.id and t_user.id=#{0}
+  </select>
+
+  <select id="selectResourcebyUserId" resultMap="ResourceMap" parameterType="Long">
+select * from  t_resource
+LEFT OUTER JOIN t_role_resource on t_resource.id=t_role_resource.resource_id
+LEFT OUTER JOIN t_role on t_role_resource.role_id=t_role.id
+LEFT OUTER JOIN t_user_role on t_role.id=t_user_role.t_r_id
+LEft OUTER JOIN t_user on t_user_role.id=t_user.id where  t_user.id=#{0}
   </select>
   
   

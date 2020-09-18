@@ -1,4 +1,4 @@
-package com.boss.xtrain.system;
+package com.boss.xtrain.system.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

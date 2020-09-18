@@ -7,6 +7,7 @@ import com.boss.xtrain.system.center.dao.entity.*;
 import com.boss.xtrain.system.center.dao.mapper.ResourceEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.RoleEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.RoleResourceEntityMapper;
+import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,24 @@ public class ResourceServiceImpl implements ResourceService {
     RoleResourceEntityMapper roleResourceEntityMapper;
     @Resource
     RoleEntityMapper roleEntityMapper;
-
+    @Resource
+    UserEntityMapper userEntityMapper;
+    /**
+     * @Author moukex
+     * @Version  1.0
+     * @Description 依照用户id查找资源列表
+     * @param userid
+     * @Return 资源列表
+     */
+    public List<ResourceEntity> queryResourceByUserId(Long userid){
+        try {
+            List<ResourceEntity> resources = new ArrayList<>();
+            resources = userEntityMapper.selectResourcebyUserId(userid);
+            return resources;
+        } catch (Exception e){
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+        }
+    };
     /**
      * @Author moukex
      * @Version  1.0
@@ -46,14 +64,7 @@ public class ResourceServiceImpl implements ResourceService {
         Example example = new Example(ResourceEntity.class);
         example.createCriteria().andEqualTo("id", resourceId);
         try{
-            ResourceEntity resourceEntity=resourceEntityMapper.selectOneByExample(example);
-            if(resourceEntity!=null){
-                return resourceEntity;
-            }
-            else{
-                log.info("查询结果为空");
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
-            }
+            return resourceEntityMapper.selectOneByExample(example);
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);

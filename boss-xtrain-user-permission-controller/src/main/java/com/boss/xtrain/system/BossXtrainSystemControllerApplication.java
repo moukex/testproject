@@ -8,7 +8,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableSwagger2
 @EnableDiscoveryClient
 @MapperScan(value = "com.boss.xtrain.system.center.dao.mapper")
-@SpringBootApplication(scanBasePackages = {"com.boss.xtrain.system","com.boss.xtrain.exception","com.boss.xtrain.api","com.boss.xtrain.utils"})
+@SpringBootApplication(scanBasePackages = {"com.boss.xtrain.system","com.boss.xtrain.exception","com.boss.xtrain.api","com.boss.xtrain.utils","com.boss.xtrain.system.config"})
 public class BossXtrainSystemControllerApplication {
 
     public static void main(String[] args) {

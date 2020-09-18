@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name = "t_user")
 public class UserEntity extends BaseEntity {
 
+    private List<ResourceEntity> resourcelist;
     private List<RoleEntity> rolelist;
 
     /**

@@ -67,13 +67,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleEntity> queryRoleByUserId(Long userId) {
         try{
-            List<RoleEntity> roles=userEntityMapper.selectRolebyUserId(userId);
-            if(roles!=null){
-                return roles;
-            }else{
-                log.info("查询结果为空");
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
-            }
+           return userEntityMapper.selectRolebyUserId(userId);
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
