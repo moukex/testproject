@@ -12,3 +12,10 @@ spring:
       discovery:
         # 服务注册中心
         server-addr: 101.37.90.167:8848
+mybatis:
+  type-aliases-package: com.boss.xtrain.system.center.dao
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/mapper/*.xml
+

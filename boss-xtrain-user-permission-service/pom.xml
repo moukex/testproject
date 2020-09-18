@@ -33,7 +33,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>com.boss</groupId>
             <artifactId>boss-xtrain-user-permission-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

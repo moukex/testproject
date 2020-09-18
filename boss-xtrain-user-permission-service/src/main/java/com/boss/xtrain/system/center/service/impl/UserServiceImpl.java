@@ -34,20 +34,6 @@ public class UserServiceImpl implements UserService {
     private  static final  String RESOURCE_URI_LIST_SIGN = "resource_uri_list";
     @Resource
     UserEntityMapper UserEntityMapper;
-    @Override
-    public int save(UserEntity entity) {
-        return UserEntityMapper.insert(entity);
-    }
-
-    @Override
-    public int delete(UserEntity entity) {
-        return UserEntityMapper.delete(entity);
-    }
-
-    @Override
-    public int update(UserEntity entity) {
-        return UserEntityMapper.updateByPrimaryKey(entity);
-    }
     /**
      * @Author moukex
      * @Version  1.0
@@ -61,22 +47,17 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("id", id);
         try{
-            return UserEntityMapper.selectOneByExample(example);
+            UserEntity user=UserEntityMapper.selectOneByExample(example);
+            if(user!=null){
+                return user;
+            }else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
+            }
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
-    }
-    /**
-     * @Author moukex
-     * @Version  1.0
-     * @Description 根据条件查找用户
-     * @param query
-     * @Return 用户实体对象列表
-     */
-    @Override
-    public List<UserEntity> queryByCondition(UserEntity query) {
-        return UserEntityMapper.selectByExample(query);
     }
     /**
      * @Author moukex
@@ -91,7 +72,14 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("name", name);
         try{
-            return UserEntityMapper.selectOneByExample(example);
+            UserEntity user=UserEntityMapper.selectOneByExample(example);
+            if(user!=null){
+                return user;
+            }
+            else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
+            }
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);

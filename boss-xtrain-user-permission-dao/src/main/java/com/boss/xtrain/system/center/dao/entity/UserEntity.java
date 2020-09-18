@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +15,8 @@ import javax.persistence.*;
 @Setter
 @Table(name = "t_user")
 public class UserEntity extends BaseEntity {
+
+    private List<RoleEntity> rolelist;
 
     /**
      * 用户id

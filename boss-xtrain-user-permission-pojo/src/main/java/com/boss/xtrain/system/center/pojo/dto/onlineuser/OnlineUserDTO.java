@@ -5,7 +5,7 @@ import lombok.*;
 import java.util.Date;
 
 /**
- * @ClassName OnlineUserVO
+ * @ClassName OnlineUserDTO
  * @Author 黄智锋
  * @Date 2020/9/3 12:49
  * @Version 1.0

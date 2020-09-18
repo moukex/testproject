@@ -1,9 +1,8 @@
 package com.boss.xtrain.system.center.pojo.vo.onlineuser;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Date;
 
 /**
  * @ClassName OnlineUserVO
@@ -12,24 +11,25 @@ import lombok.ToString;
  * @Version 1.0
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
 public class OnlineUserVO {
     /** 用户工号 */
-    private String userCode;
+    private String code;
 
     /** 用户名称 */
-    private long name;
+    private String name;
 
     /** 登录ip地址 */
     private String ip;
 
     /** 上线时间 */
-    private String openlineTime;
+    private Date onlineTime;
 
     /** 下线时间 */
-    private String offlineTime;
+    private Date offlineTime;
 
     /** 状态*/
     private int status;

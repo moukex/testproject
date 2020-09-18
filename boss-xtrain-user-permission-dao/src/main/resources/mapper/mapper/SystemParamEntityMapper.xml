@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.boss.xtrain.system.center.pojo.impl.SystemParamEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.boss.xtrain.system.center.pojo.entity.SystemParamEntity" >
+<mapper namespace="com.boss.xtrain.system.center.dao.mapper.SystemParamEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.boss.xtrain.system.center.dao.entity.SystemParamEntity" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -17,4 +17,6 @@
     <result column="version" property="version" jdbcType="BIGINT" />
     <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
   </resultMap>
+
+
 </mapper>

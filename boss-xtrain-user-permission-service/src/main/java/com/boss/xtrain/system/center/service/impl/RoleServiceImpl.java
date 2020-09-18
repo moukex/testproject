@@ -6,8 +6,10 @@ import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.dao.entity.UserRoleEntity;
 import com.boss.xtrain.system.center.dao.mapper.RoleEntityMapper;
+import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.UserRoleEntityMapper;
 import com.boss.xtrain.system.center.service.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -21,12 +23,15 @@ import java.util.List;
  * @Date: 2020/9/7 16:01
  * @Version: 1.0
  */
+@Slf4j
 @Component
 public class RoleServiceImpl implements RoleService {
     @Resource
     RoleEntityMapper roleEntityMapper;
     @Resource
     UserRoleEntityMapper userRoleEntityMapper;
+    @Resource
+    UserEntityMapper userEntityMapper;
 
     /**
      * @Author moukex
@@ -40,7 +45,13 @@ public class RoleServiceImpl implements RoleService {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("id", roleId);
         try{
-            return roleEntityMapper.selectOneByExample(example);
+            RoleEntity role=roleEntityMapper.selectOneByExample(example);
+            if(role!=null){
+                return role;
+            }else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
+            }
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
@@ -55,21 +66,18 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<RoleEntity> queryRoleByUserId(Long userId) {
-        Example example = new Example(UserRoleEntity.class);
-        example.createCriteria().andEqualTo("id", userId);
         try{
-            List<UserRoleEntity> URlist= userRoleEntityMapper.selectByExample(example);
-            List<RoleEntity> roles=new ArrayList<>();
-            for(UserRoleEntity UR :URlist){
-                Long roleid = UR.getTRId();
-                roles.add(getRolebyId(roleid));
+            List<RoleEntity> roles=userEntityMapper.selectRolebyUserId(userId);
+            if(roles!=null){
+                return roles;
+            }else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
             }
-            return roles;
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
-
     }
     /**
      * @Author moukex

@@ -1,9 +1,11 @@
 package com.boss.xtrain.system.center.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import javax.persistence.*;
@@ -36,6 +38,8 @@ public class OnlineUserEntity {
     /**
      * 上线时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "offline_time")
     private Date offlineTime;
 
@@ -48,6 +52,8 @@ public class OnlineUserEntity {
     /**
      * 在线时长
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "online_time")
     private Date onlineTime;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.boss.xtrain.system.center.pojo.impl.PositionEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.boss.xtrain.system.center.pojo.entity.PositionEntity" >
+<mapper namespace="com.boss.xtrain.system.center.dao.mapper.PositionEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.boss.xtrain.system.center.dao.entity.PositionEntity" >
     <!--
       WARNING - @mbg.generated
     -->

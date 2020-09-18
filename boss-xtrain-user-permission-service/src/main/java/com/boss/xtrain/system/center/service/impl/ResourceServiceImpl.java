@@ -5,8 +5,10 @@ import com.boss.xtrain.exception.type.ServiceException;
 import com.boss.xtrain.system.center.dao.entity.*;
 
 import com.boss.xtrain.system.center.dao.mapper.ResourceEntityMapper;
+import com.boss.xtrain.system.center.dao.mapper.RoleEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.RoleResourceEntityMapper;
 import com.boss.xtrain.system.center.service.service.ResourceService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -21,12 +23,15 @@ import java.util.List;
  * @Date: 2020/9/7 16:01
  * @Version: 1.0
  */
+@Slf4j
 @Component
 public class ResourceServiceImpl implements ResourceService {
     @Resource
     ResourceEntityMapper resourceEntityMapper;
     @Resource
     RoleResourceEntityMapper roleResourceEntityMapper;
+    @Resource
+    RoleEntityMapper roleEntityMapper;
 
     /**
      * @Author moukex
@@ -38,10 +43,17 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public ResourceEntity getResourcebyId(Long resourceId) {
-        Example example = new Example(UserEntity.class);
+        Example example = new Example(ResourceEntity.class);
         example.createCriteria().andEqualTo("id", resourceId);
         try{
-            return resourceEntityMapper.selectOneByExample(example);
+            ResourceEntity resourceEntity=resourceEntityMapper.selectOneByExample(example);
+            if(resourceEntity!=null){
+                return resourceEntity;
+            }
+            else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
+            }
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
@@ -58,16 +70,15 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public List<ResourceEntity> queryResourceByRoleId(Long roleId) {
-        Example example = new Example(RoleResourceEntity.class);
-        example.createCriteria().andEqualTo("roleId", roleId);
         try{
-            List<RoleResourceEntity> RRlist= roleResourceEntityMapper.selectByExample(example);
-            List<ResourceEntity> Resources=new ArrayList<>();
-            for(RoleResourceEntity RR :RRlist){
-                Long resourceId = RR.getResourceId();
-                Resources.add(getResourcebyId(resourceId));
+            List<ResourceEntity> resources=new ArrayList<>();
+            resources=roleEntityMapper.selectResourcebyRoleId(roleId);
+            if(resources!=null){
+                return resources;
+            }else{
+                log.info("查询结果为空");
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),new Throwable("1"));
             }
-            return Resources;
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);

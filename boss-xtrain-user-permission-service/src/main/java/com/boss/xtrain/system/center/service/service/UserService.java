@@ -13,21 +13,12 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface UserService {
-    int save(UserEntity entity);
-    int delete(UserEntity entity);
-    int update(UserEntity entity);
     /**
      * 通过用户id获取用户
      ** @param id 用户id
      * @return User 用户对象
      **/
     UserEntity getUserById(Long id);
-    /**
-     * 通过条件获取用户
-     ** @param query 条件
-     * @return User 用户对象
-     **/
-    List<UserEntity> queryByCondition(UserEntity query);
     /**
      * 通过用户名获取用户
      ** @param name 用户名称

@@ -35,7 +35,6 @@ import java.util.Map;
 @Api(tags="用户认证与授权controller")
 @Slf4j
 @RestController
-@CrossOrigin
 public class UserController extends AbstractController {
 
 
@@ -54,8 +53,8 @@ public class UserController extends AbstractController {
      * @Return CommonResponse 标准应答
      */
     @ApiLog
-    @PostMapping("/checklogin")
-    public CommonResponse checkLogin(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
+    @PostMapping("/login")
+    public CommonResponse Login(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
         log.info(commonRequest.toString());
         UserLoginDTO user = commonRequest.getBody();
         String name = user.getUsername();
@@ -79,17 +78,22 @@ public class UserController extends AbstractController {
      */
     @ApiLog
     @GetMapping("/getinfo")
-    public CommonResponse info(String token){
+    public CommonResponse getinfo(String token){
         Map map = new HashMap<>();
         map=JwtUtils.parseJWT(token);
         Long id=Long.valueOf(String.valueOf(map.get("userId")));
         List<String> roles=new ArrayList<>();
         roles=roleService.queryNameRoleByUserId(id);
-        String name=userService.getUserById(id).getName();
+        UserEntity user=userService.getUserById(id);
+        String name=user.getName();
+        Long companyid=user.getCompanyId();
+        Long departmentid=user.getDepartment();
         Map<String, Object> remap = new HashMap<>(8);
         remap.put("roles",roles);
         remap.put("name",name);
         remap.put("id",id);
+        remap.put("company_id",companyid);
+        remap.put("department_id",departmentid);
         remap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         return buildSuccCommonResponse(remap);
     }
@@ -102,7 +106,7 @@ public class UserController extends AbstractController {
      */
     @ApiLog
     @GetMapping("/getlist")
-    public  CommonResponse checkList(String token){
+    public  CommonResponse getList(String token){
         Map map = new HashMap<>();
         map=JwtUtils.parseJWT(token);
         Long id=Long.valueOf(String.valueOf(map.get("userId")));
@@ -110,13 +114,19 @@ public class UserController extends AbstractController {
         List<ResourceEntity> resources=new ArrayList<>();
         roles=roleService.queryRoleByUserId(id);
         List<Integer> resourcelist= new ArrayList<>();
+        //初始化资源列表
         for(int i=0;i<=30;i++){
             resourcelist.add(1);
         }
+        //根据用户的角色获取资源列表
         for(RoleEntity role:roles){
             resources=resourceService.queryResourceByRoleId(role.getId());
             for(ResourceEntity res:resources){
-                resourcelist.set(res.getNumber(),0);
+                if(res!=null){
+                    resourcelist.set(res.getNumber(),0);
+                }else{
+                    log.info("res为空");
+                }
             }
         }
         return buildSuccCommonResponse(resourcelist);
