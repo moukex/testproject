@@ -1,4 +1,4 @@
-package com.boss.xtrain.utils;
+package com.boss.xtrain.user.utils;
 
 
 import com.auth0.jwt.JWT;

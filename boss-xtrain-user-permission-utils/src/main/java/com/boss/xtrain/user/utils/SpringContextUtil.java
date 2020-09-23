@@ -1,4 +1,4 @@
-package com.boss.xtrain.utils;
+package com.boss.xtrain.user.utils;
 
 
 import org.springframework.beans.BeansException;

@@ -16,6 +16,5 @@ mybatis:
   type-aliases-package: com.boss.xtrain.system.center.dao
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/mapper/*.xml
 

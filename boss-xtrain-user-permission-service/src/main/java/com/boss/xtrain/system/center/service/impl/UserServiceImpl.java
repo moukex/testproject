@@ -2,12 +2,10 @@ package com.boss.xtrain.system.center.service.impl;
 
 import com.boss.xtrain.exception.code.enums.business.DataCode;
 import com.boss.xtrain.exception.type.ServiceException;
-import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
-import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.UserService;
-import com.boss.xtrain.utils.JwtUtils;
+import com.boss.xtrain.user.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;

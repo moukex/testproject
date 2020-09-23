@@ -6,7 +6,9 @@ import com.boss.xtrain.system.center.dao.entity.OnlineUserEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.dao.mapper.OnlineUserEntityMapper;
 import com.boss.xtrain.system.center.pojo.dto.onlineuser.OnlineUserDTO;
+import com.boss.xtrain.system.center.pojo.query.UserQuery;
 import com.boss.xtrain.system.center.service.service.UseronlineService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -29,23 +31,26 @@ public class UseronlineServiceImpl implements UseronlineService {
      * @Author moukex
      * @Version  1.0
      * @Description 根据传回的条件查询所有的在线用户信息表
-     * @param onlineUserDTO
+     * @param userQuery
      * @Return  list
      */
     @Override
-    public List<OnlineUserEntity> queryAll(OnlineUserDTO onlineUserDTO) {
+    public List<OnlineUserEntity> queryAll(UserQuery userQuery) {
+        Integer pageNum = userQuery.getPageNum();
+        Integer pageSize = userQuery.getPageSize();
+        PageHelper.startPage(pageNum,pageSize);
         Example e = new Example(OnlineUserEntity.class);
         Example.Criteria c = e.createCriteria();
-        if(!"".equals(onlineUserDTO.getCode())){
-            c.andEqualTo("code",onlineUserDTO.getCode());
-        } if(!"".equals(onlineUserDTO.getName())){
-            c.andEqualTo("name",onlineUserDTO.getName());
-        } if(null!=onlineUserDTO.getOnlineTime()){
-            c.andGreaterThan("onlineTime",onlineUserDTO.getOnlineTime());
-        }if(null!=onlineUserDTO.getOfflineTime()){
-            c.andLessThan("offlineTime",onlineUserDTO.getOfflineTime());
+        if(!"".equals(userQuery.getCode())){
+            c.andEqualTo("code",userQuery.getCode());
+        } if(!"".equals(userQuery.getName())){
+            c.andEqualTo("name",userQuery.getName());
+        } if(null!=userQuery.getOnlineTime()){
+            c.andGreaterThan("onlineTime",userQuery.getOnlineTime());
+        }if(null!=userQuery.getOfflineTime()){
+            c.andLessThan("offlineTime",userQuery.getOfflineTime());
         }
-        if("".equals(onlineUserDTO.getCode())&& "".equals(onlineUserDTO.getName()) && null==onlineUserDTO.getOnlineTime() && null==onlineUserDTO.getOfflineTime())
+        if("".equals(userQuery.getCode())&& "".equals(userQuery.getName()) && null==userQuery.getOnlineTime() && null==userQuery.getOfflineTime())
         {
             try {
                 return onlineUserEntityMapper.selectAll();
@@ -109,6 +114,7 @@ public class UseronlineServiceImpl implements UseronlineService {
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
     }
+
 
 
 }

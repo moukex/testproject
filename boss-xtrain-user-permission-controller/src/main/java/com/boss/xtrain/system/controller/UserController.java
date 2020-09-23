@@ -11,7 +11,7 @@ import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
 import com.boss.xtrain.system.center.service.impl.*;
-import com.boss.xtrain.utils.JwtUtils;
+import com.boss.xtrain.user.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,7 @@ import java.util.Map;
 @Api(tags="用户认证与授权controller")
 @Slf4j
 @RestController
+@RequestMapping("/user")
 public class UserController extends AbstractController {
 
 
@@ -51,7 +52,6 @@ public class UserController extends AbstractController {
     @ApiLog
     @PostMapping("/login")
     public CommonResponse Login(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
-        log.info(commonRequest.toString());
         UserLoginDTO user = commonRequest.getBody();
         String name = user.getUsername();
         String password = user.getPassword();
@@ -84,10 +84,12 @@ public class UserController extends AbstractController {
         String name=user.getName();
         Long companyid=user.getCompanyId();
         Long departmentid=user.getDepartment();
+        Long organizationId=user.getOrganizationId();
         Map<String, Object> remap = new HashMap<>(8);
         remap.put("roles",roles);
         remap.put("name",name);
         remap.put("id",id);
+        remap.put("organizationId",organizationId);
         remap.put("company_id",companyid);
         remap.put("department_id",departmentid);
         remap.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");

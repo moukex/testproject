@@ -1,15 +1,19 @@
 package com.boss.xtrain.system.center.dao.entity;
 
 import com.boss.xtrain.data.convertion.base.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,6 +26,7 @@ public class DictionaryEntity extends BaseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "JDBC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**
@@ -54,4 +59,14 @@ public class DictionaryEntity extends BaseEntity {
     @Column(name = "organization_id")
     private Long organizationId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "created_time")
+    private Date createdTime;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "updated_time")
+    private Date updatedTime;
 }

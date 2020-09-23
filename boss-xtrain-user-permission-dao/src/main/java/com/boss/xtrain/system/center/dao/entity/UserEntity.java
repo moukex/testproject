@@ -142,6 +142,12 @@ public class UserEntity extends BaseEntity {
     private Long companyId;
 
     /**
+     * 组织ID
+     */
+    @Column(name = "organization_id")
+    private Long organizationId;
+
+    /**
      * 获取用户id
      *
      * @return id - 用户id

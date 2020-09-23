@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class OnlineUserEntity {
     @Id
     @Column(name = "id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @GeneratedValue(generator = "JDBC")
     private Long id;
 

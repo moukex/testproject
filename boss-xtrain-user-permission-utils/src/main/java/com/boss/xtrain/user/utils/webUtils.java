@@ -1,4 +1,4 @@
-package com.boss.xtrain.utils;
+package com.boss.xtrain.user.utils;
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import javax.websocket.RemoteEndpoint.Async;
