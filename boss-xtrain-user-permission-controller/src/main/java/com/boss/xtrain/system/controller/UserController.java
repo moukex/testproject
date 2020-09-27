@@ -6,6 +6,7 @@ import com.boss.xtrain.data.convertion.common.CommonRequest;
 import com.boss.xtrain.data.convertion.common.CommonResponse;
 import com.boss.xtrain.exception.code.enums.system.AuthenticationCode;
 import com.boss.xtrain.exception.type.BusinessException;
+import com.boss.xtrain.system.UserApi;
 import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
 import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
@@ -31,7 +32,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/user")
-public class UserController extends AbstractController {
+public class UserController extends AbstractController implements UserApi {
 
 
     @Autowired
@@ -108,11 +109,7 @@ public class UserController extends AbstractController {
         Map map = new HashMap<>();
         map = JwtUtils.parseJWT(token);
         Long id = Long.valueOf(String.valueOf(map.get("userId")));
-        List<RoleEntity> roles = new ArrayList<>();
-        List<ResourceEntity> resources = new ArrayList<>();
-        roles = roleService.queryRoleByUserId(id);
         List<Integer> resourcelist = new ArrayList<>();
-        log.info("------------------------------------------------------------------------");
         List<ResourceEntity> newresources = new ArrayList<>();
         newresources = resourceService.queryResourceByUserId(id);
         //初始化资源列表
@@ -124,7 +121,7 @@ public class UserController extends AbstractController {
             if (res != null) {
                 resourcelist.set(res.getNumber(), 0);
             } else {
-                log.info("res为空");
+                log.info("该资源为空");
             }
         }
             return buildSuccCommonResponse(resourcelist);
@@ -142,6 +139,26 @@ public class UserController extends AbstractController {
         Map<String, String> map = new HashMap<>(8);
         map.put("message","success");
         return buildSuccCommonResponse(map);
+    }
+    /**
+     * @Author moukex
+     * @Version  1.0
+     * @Description 通过用户id获取资源表，然后查询url是否在资源表中
+     * @param  userid 用户id
+     * @param url 访问路径
+     * @Return
+     */
+    @ApiLog
+    @PostMapping("/judgeuser")
+    public boolean judgePermission(Long userid,String url){
+        List<ResourceEntity> newresources = new ArrayList<>();
+        newresources = resourceService.queryResourceByUserId(userid);
+        for(ResourceEntity res : newresources){
+            if(url.contains(url)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

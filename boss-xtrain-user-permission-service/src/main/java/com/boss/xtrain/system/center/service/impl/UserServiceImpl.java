@@ -7,6 +7,7 @@ import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.UserService;
 import com.boss.xtrain.user.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
      * @Return 用户实体对象
      * @throw  ServiceException 查表错误
      */
+    @Cacheable(cacheNames = {"getuser"})
     @Override
     public UserEntity getUserById(Long id) {
         Example example = new Example(UserEntity.class);
@@ -65,6 +67,7 @@ public class UserServiceImpl implements UserService {
      * @Return 用户实体对象
      * @throw ServiceException 查表错误
      */
+    @Cacheable(cacheNames = {"getuser1"})
     @Override
     public UserEntity getUserByName(String name) {
         Example example = new Example(UserEntity.class);

@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @RestController
 @ServerEndpoint(value = "/user/websocket/{userOnlineInfoId}")
-@RequestMapping("/user")
+@RequestMapping("/user/onlineuser")
 public class UserOnlineController extends AbstractController {
 
     UseronlineServiceImpl useronlineService;

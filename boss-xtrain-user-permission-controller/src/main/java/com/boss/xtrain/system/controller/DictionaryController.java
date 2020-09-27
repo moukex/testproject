@@ -6,6 +6,7 @@ import com.boss.xtrain.api.annotation.ApiLog;
 import com.boss.xtrain.data.convertion.base.controller.AbstractController;
 import com.boss.xtrain.data.convertion.common.CommonRequest;
 import com.boss.xtrain.data.convertion.common.CommonResponse;
+import com.boss.xtrain.system.DictionaryApi;
 import com.boss.xtrain.system.center.dao.entity.DictionaryEntity;
 import com.boss.xtrain.system.center.pojo.dto.dictionary.DeleteDictionaryDTO;
 import com.boss.xtrain.system.center.pojo.dto.dictionary.DictionaryDTO;
@@ -31,8 +32,8 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/user")
-public class DictionaryController extends AbstractController {
+@RequestMapping("/user/dictionary")
+public class DictionaryController extends AbstractController implements DictionaryApi {
     @Autowired
     DictionaryServiceImpl dictionaryService;
 
@@ -87,6 +88,9 @@ public class DictionaryController extends AbstractController {
         dictionaryEntity.setRemark(dictionaryDTO.getRemark());
         dictionaryEntity.setStatus(dictionaryDTO.getStatus());
         dictionaryEntity.setCreatedBy(dictionaryDTO.getCreated_by());
+        Date now=new Date(System.currentTimeMillis());
+        dictionaryEntity.setCreatedTime(now);
+        dictionaryEntity.setUpdatedTime(now);
         dictionaryEntity.setVersion(1L);
         Snowflake snowflake= IdUtil.createSnowflake(15,10);
         Long onlineId=snowflake.nextId();
@@ -115,7 +119,7 @@ public class DictionaryController extends AbstractController {
         dictionaryEntity.setValue(dictionaryDTO.getValue());
         dictionaryEntity.setRemark(dictionaryDTO.getRemark());
         dictionaryEntity.setStatus(dictionaryDTO.getStatus());
-        dictionaryEntity.setCreatedBy(dictionaryDTO.getCreated_by());
+        dictionaryEntity.setUpdatedBy(dictionaryDTO.getUpdated_by());
         dictionaryEntity.setId(dictionaryDTO.getId());
         dictionaryEntity.setVersion(1L);
         Date now=new Date(System.currentTimeMillis());

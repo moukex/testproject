@@ -44,15 +44,22 @@ public class DictionaryServiceImpl implements DictionaryService {
             c.andEqualTo("name",dictionaryQuery.getName());
         }if(!"".equals(dictionaryQuery.getCategory())){
             c.andEqualTo("category",dictionaryQuery.getCategory());
+        }if(null!=dictionaryQuery.getOrgId()){
+            c.andEqualTo("organizationId",dictionaryQuery.getOrgId());
         }
         if("".equals(dictionaryQuery.getName()) && "".equals(dictionaryQuery.getName())){
             try{
-                return dictionaryEntityMapper.selectAll();
+                Example e2 = new Example(DictionaryEntity.class);
+                Example.Criteria c2 = e2.createCriteria();
+                c2.andEqualTo("organizationId",dictionaryQuery.getOrgId());
+                e2.orderBy("updatedTime").desc();
+                return dictionaryEntityMapper.selectByExample(e2);
             }catch (Exception ex){
                 throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
             }
         }else{
             try{
+                e.orderBy("updatedTime").desc();
                 return dictionaryEntityMapper.selectByExample(e);
             }catch (Exception ex){
                 throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);

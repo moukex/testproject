@@ -10,6 +10,7 @@ import com.boss.xtrain.system.center.dao.mapper.RoleResourceEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -42,6 +43,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @param userid
      * @Return 资源列表
      */
+    @Cacheable(cacheNames = {"resource"})
     public List<ResourceEntity> queryResourceByUserId(Long userid){
         try {
             List<ResourceEntity> resources = new ArrayList<>();

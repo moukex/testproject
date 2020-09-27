@@ -10,6 +10,7 @@ import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.UserRoleEntityMapper;
 import com.boss.xtrain.system.center.service.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
@@ -80,6 +81,7 @@ public class RoleServiceImpl implements RoleService {
      * @param userId 用户id
      * @Return list 角色名列表
      */
+    @Cacheable(cacheNames = {"roles"})
     @Override
     public List<String> queryNameRoleByUserId(Long userId) {
         Example example = new Example(UserRoleEntity.class);
