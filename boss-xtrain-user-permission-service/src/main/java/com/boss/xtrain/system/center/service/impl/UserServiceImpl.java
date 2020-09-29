@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
 import java.util.*;
 
@@ -29,10 +28,8 @@ public class UserServiceImpl implements UserService {
      */
     private  static final  String USER_ID = "userId";
     private  static final  Long EXPIRE_TIME = 1000 * 60  * 15L;
-    private  static final  String USER_SIGN = "user";
-    private  static final  String RESOURCE_URI_LIST_SIGN = "resource_uri_list";
     @Resource
-    UserEntityMapper UserEntityMapper;
+    UserEntityMapper userEntityMapper;
     /**
      * @Author moukex
      * @Version  1.0
@@ -47,7 +44,7 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("id", id);
         try{
-            UserEntity user=UserEntityMapper.selectOneByExample(example);
+            UserEntity user=userEntityMapper.selectOneByExample(example);
             if(user!=null){
                 return user;
             }else{
@@ -73,7 +70,7 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserEntity.class);
         example.createCriteria().andEqualTo("name", name);
         try{
-            UserEntity user=UserEntityMapper.selectOneByExample(example);
+            UserEntity user=userEntityMapper.selectOneByExample(example);
             if(user!=null){
                 return user;
             }

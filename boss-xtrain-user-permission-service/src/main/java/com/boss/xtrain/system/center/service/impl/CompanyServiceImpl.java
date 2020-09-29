@@ -8,7 +8,6 @@ import com.boss.xtrain.system.center.service.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
 
 /**

@@ -1,10 +1,7 @@
 package com.boss.xtrain.system.center.service.service;
 
-import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
-import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 
-import java.util.List;
 
 /**
  * @Author: moukex

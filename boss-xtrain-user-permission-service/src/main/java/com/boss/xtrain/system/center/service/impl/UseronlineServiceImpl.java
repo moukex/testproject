@@ -3,9 +3,7 @@ package com.boss.xtrain.system.center.service.impl;
 import com.boss.xtrain.exception.code.enums.business.DataCode;
 import com.boss.xtrain.exception.type.ServiceException;
 import com.boss.xtrain.system.center.dao.entity.OnlineUserEntity;
-import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.dao.mapper.OnlineUserEntityMapper;
-import com.boss.xtrain.system.center.pojo.dto.onlineuser.OnlineUserDTO;
 import com.boss.xtrain.system.center.pojo.query.UserQuery;
 import com.boss.xtrain.system.center.service.service.UseronlineService;
 import com.github.pagehelper.PageHelper;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import javax.websocket.Session;
-import java.net.InetSocketAddress;
 import java.util.List;
 
 /**
@@ -43,11 +39,14 @@ public class UseronlineServiceImpl implements UseronlineService {
         Example.Criteria c = e.createCriteria();
         if(!"".equals(userQuery.getCode())){
             c.andEqualTo("code",userQuery.getCode());
-        } if(!"".equals(userQuery.getName())){
+        }
+        if(!"".equals(userQuery.getName())){
             c.andEqualTo("name",userQuery.getName());
-        } if(null!=userQuery.getOnlineTime()){
+        }
+        if(null!=userQuery.getOnlineTime()){
             c.andGreaterThan("onlineTime",userQuery.getOnlineTime());
-        }if(null!=userQuery.getOfflineTime()){
+        }
+        if(null!=userQuery.getOfflineTime()){
             c.andLessThan("offlineTime",userQuery.getOfflineTime());
         }
         if("".equals(userQuery.getCode())&& "".equals(userQuery.getName()) && null==userQuery.getOnlineTime() && null==userQuery.getOfflineTime())
@@ -108,6 +107,7 @@ public class UseronlineServiceImpl implements UseronlineService {
         Example example = new Example(OnlineUserEntity.class);
         example.createCriteria().andEqualTo("id", onlineuserid);
         try{
+            example.orderBy("status").desc();
             return onlineUserEntityMapper.selectOneByExample(example);
         }
         catch (Exception e){

@@ -3,19 +3,15 @@ package com.boss.xtrain.system.center.service.impl;
 import com.boss.xtrain.exception.code.enums.business.DataCode;
 import com.boss.xtrain.exception.type.ServiceException;
 import com.boss.xtrain.system.center.dao.entity.*;
-
 import com.boss.xtrain.system.center.dao.mapper.ResourceEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.RoleEntityMapper;
-import com.boss.xtrain.system.center.dao.mapper.RoleResourceEntityMapper;
 import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,8 +27,6 @@ public class ResourceServiceImpl implements ResourceService {
     @Resource
     ResourceEntityMapper resourceEntityMapper;
     @Resource
-    RoleResourceEntityMapper roleResourceEntityMapper;
-    @Resource
     RoleEntityMapper roleEntityMapper;
     @Resource
     UserEntityMapper userEntityMapper;
@@ -46,7 +40,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Cacheable(cacheNames = {"resource"})
     public List<ResourceEntity> queryResourceByUserId(Long userid){
         try {
-            List<ResourceEntity> resources = new ArrayList<>();
+            List<ResourceEntity> resources;
             resources = userEntityMapper.selectResourcebyUserId(userid);
             return resources;
         } catch (Exception e){
@@ -84,7 +78,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public List<ResourceEntity> queryResourceByRoleId(Long roleId) {
         try{
-            List<ResourceEntity> resources=new ArrayList<>();
+            List<ResourceEntity> resources;
             resources=roleEntityMapper.selectResourcebyRoleId(roleId);
             if(resources!=null){
                 return resources;

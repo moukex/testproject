@@ -5,7 +5,6 @@ import com.boss.xtrain.exception.type.ServiceException;
 import com.boss.xtrain.system.center.dao.entity.DictionaryEntity;
 import com.boss.xtrain.system.center.dao.mapper.DictionaryEntityMapper;
 import com.boss.xtrain.system.center.pojo.dto.dictionary.DeleteDictionaryDTO;
-import com.boss.xtrain.system.center.pojo.dto.dictionary.DictionaryDTO;
 import com.boss.xtrain.system.center.pojo.query.DictionaryQuery;
 import com.boss.xtrain.system.center.service.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
@@ -42,9 +41,11 @@ public class DictionaryServiceImpl implements DictionaryService {
         Example.Criteria c = e.createCriteria();
         if(!"".equals(dictionaryQuery.getName())){
             c.andEqualTo("name",dictionaryQuery.getName());
-        }if(!"".equals(dictionaryQuery.getCategory())){
+        }
+        if(!"".equals(dictionaryQuery.getCategory())){
             c.andEqualTo("category",dictionaryQuery.getCategory());
-        }if(null!=dictionaryQuery.getOrgId()){
+        }
+        if(null!=dictionaryQuery.getOrgId()){
             c.andEqualTo("organizationId",dictionaryQuery.getOrgId());
         }
         if("".equals(dictionaryQuery.getName()) && "".equals(dictionaryQuery.getName())){

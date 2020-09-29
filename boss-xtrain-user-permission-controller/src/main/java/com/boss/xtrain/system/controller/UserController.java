@@ -8,7 +8,6 @@ import com.boss.xtrain.exception.code.enums.system.AuthenticationCode;
 import com.boss.xtrain.exception.type.BusinessException;
 import com.boss.xtrain.system.UserApi;
 import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
-import com.boss.xtrain.system.center.dao.entity.RoleEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
 import com.boss.xtrain.system.center.service.impl.*;
@@ -52,7 +51,7 @@ public class UserController extends AbstractController implements UserApi {
      */
     @ApiLog
     @PostMapping("/login")
-    public CommonResponse Login(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
+    public CommonResponse login(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
         UserLoginDTO user = commonRequest.getBody();
         String name = user.getUsername();
         String password = user.getPassword();
@@ -76,10 +75,10 @@ public class UserController extends AbstractController implements UserApi {
     @ApiLog
     @GetMapping("/getinfo")
     public CommonResponse getinfo(String token){
-        Map map = new HashMap<>();
+        Map map ;
         map=JwtUtils.parseJWT(token);
         Long id=Long.valueOf(String.valueOf(map.get("userId")));
-        List<String> roles=new ArrayList<>();
+        List<String> roles;
         roles=roleService.queryNameRoleByUserId(id);
         UserEntity user=userService.getUserById(id);
         String name=user.getName();
@@ -106,11 +105,11 @@ public class UserController extends AbstractController implements UserApi {
     @ApiLog
     @GetMapping("/getlist")
     public  CommonResponse getList(String token) {
-        Map map = new HashMap<>();
+        Map map;
         map = JwtUtils.parseJWT(token);
         Long id = Long.valueOf(String.valueOf(map.get("userId")));
         List<Integer> resourcelist = new ArrayList<>();
-        List<ResourceEntity> newresources = new ArrayList<>();
+        List<ResourceEntity> newresources;
         newresources = resourceService.queryResourceByUserId(id);
         //初始化资源列表
         for (int i = 0; i <= 30; i++) {
@@ -151,10 +150,10 @@ public class UserController extends AbstractController implements UserApi {
     @ApiLog
     @PostMapping("/judgeuser")
     public boolean judgePermission(Long userid,String url){
-        List<ResourceEntity> newresources = new ArrayList<>();
+        List<ResourceEntity> newresources;
         newresources = resourceService.queryResourceByUserId(userid);
         for(ResourceEntity res : newresources){
-            if(url.contains(url)){
+            if(res.getUrl().contains(url)){
                 return true;
             }
         }

@@ -5,7 +5,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.boss.xtrain.exception.code.enums.system.AuthenticationCode;
 import com.boss.xtrain.exception.type.BusinessException;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

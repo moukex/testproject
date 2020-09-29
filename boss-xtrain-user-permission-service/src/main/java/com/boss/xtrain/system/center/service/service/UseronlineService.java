@@ -1,11 +1,7 @@
 package com.boss.xtrain.system.center.service.service;
 
 import com.boss.xtrain.system.center.dao.entity.OnlineUserEntity;
-import com.boss.xtrain.system.center.pojo.dto.onlineuser.OnlineUserDTO;
 import com.boss.xtrain.system.center.pojo.query.UserQuery;
-
-import javax.websocket.Session;
-import java.net.InetSocketAddress;
 import java.util.List;
 
 /**

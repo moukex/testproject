@@ -9,7 +9,6 @@ import com.boss.xtrain.data.convertion.common.CommonResponse;
 import com.boss.xtrain.system.center.dao.entity.OnlineUserEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.pojo.dto.onlineuser.OfflineDTO;
-import com.boss.xtrain.system.center.pojo.dto.onlineuser.OnlineUserDTO;
 import com.boss.xtrain.system.center.pojo.query.UserQuery;
 import com.boss.xtrain.system.center.service.impl.UserServiceImpl;
 import com.boss.xtrain.system.center.service.impl.UseronlineServiceImpl;
@@ -18,6 +17,8 @@ import com.boss.xtrain.user.utils.SpringContextUtil;
 import com.boss.xtrain.user.utils.webUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import com.github.pagehelper.PageInfo;
 import java.net.InetSocketAddress;
@@ -142,7 +143,7 @@ public class UserOnlineController extends AbstractController {
         ApplicationContext act = SpringContextUtil.getApplicationContext();
         //注入bean
         useronlineService=act.getBean(UseronlineServiceImpl.class);
-        List<OnlineUserEntity> onlineusers=new ArrayList<>();
+        List<OnlineUserEntity> onlineusers;
         UserQuery queryonlineuser=commonRequest.getBody();
         onlineusers=useronlineService.queryAll(queryonlineuser);
         PageInfo<OnlineUserEntity> pageInfo = new PageInfo<>(onlineusers);
@@ -164,7 +165,6 @@ public class UserOnlineController extends AbstractController {
         useronlineService=act.getBean(UseronlineServiceImpl.class);
         userService=act.getBean(UserServiceImpl.class);
         OfflineDTO offline=commonRequest.getBody();
-        Long offlineuserid=offline.getOnlineuserid();
         String username=offline.getOnlineusername();
         if(null!=webSocketMap.get(username)) {
             OnlineUserEntity onlineUserEntity=useronlineService.queryOnlineUserById(webSocketMap.get(username));

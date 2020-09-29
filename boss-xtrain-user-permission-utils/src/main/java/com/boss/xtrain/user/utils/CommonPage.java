@@ -2,7 +2,6 @@ package com.boss.xtrain.user.utils;
 
 import com.github.pagehelper.PageInfo;
 import lombok.Data;
-
 import java.util.List;
 
 /**

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public interface UserApi {
     @PostMapping("/login")
-    CommonResponse Login(@RequestBody CommonRequest<UserLoginDTO> commonRequest);
+    CommonResponse login(@RequestBody CommonRequest<UserLoginDTO> commonRequest);
 
     @GetMapping("/getinfo")
     CommonResponse getinfo(String token);
