@@ -30,4 +30,6 @@ public interface UseronlineService {
 
     OnlineUserEntity queryOnlineUserById(Long onlineuserid);
 
+    boolean judgeStatus(Long userid);
+
 }

@@ -11,7 +11,7 @@ import com.boss.xtrain.system.center.dao.entity.DictionaryEntity;
 import com.boss.xtrain.system.center.pojo.dto.dictionary.DeleteDictionaryDTO;
 import com.boss.xtrain.system.center.pojo.dto.dictionary.DictionaryDTO;
 import com.boss.xtrain.system.center.pojo.query.DictionaryQuery;
-import com.boss.xtrain.system.center.service.impl.DictionaryServiceImpl;
+import com.boss.xtrain.system.center.service.service.DictionaryService;
 import com.boss.xtrain.user.utils.CommonPage;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/user/dictionary")
 public class DictionaryController extends AbstractController implements DictionaryApi {
     @Autowired
-    DictionaryServiceImpl dictionaryService;
+    DictionaryService dictionaryService;
 
     /**
      * @Author moukex

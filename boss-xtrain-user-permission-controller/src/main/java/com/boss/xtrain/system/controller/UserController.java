@@ -10,7 +10,10 @@ import com.boss.xtrain.system.UserApi;
 import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
 import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
-import com.boss.xtrain.system.center.service.impl.*;
+import com.boss.xtrain.system.center.service.service.ResourceService;
+import com.boss.xtrain.system.center.service.service.RoleService;
+import com.boss.xtrain.system.center.service.service.UserService;
+import com.boss.xtrain.system.center.service.service.UseronlineService;
 import com.boss.xtrain.user.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -35,11 +38,13 @@ public class UserController extends AbstractController implements UserApi {
 
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
     @Autowired
-    private RoleServiceImpl roleService;
+    private RoleService roleService;
     @Autowired
-    private ResourceServiceImpl resourceService;
+    private ResourceService resourceService;
+    @Autowired
+    private UseronlineService useronlineService;
 
 
     /**
@@ -56,6 +61,11 @@ public class UserController extends AbstractController implements UserApi {
         String name = user.getUsername();
         String password = user.getPassword();
         UserEntity usercheck=userService.getUserByName(name);
+        if(useronlineService.judgeStatus(usercheck.getId())){
+            log.info("{}用户在线",name);
+        }else {
+            log.info("{}用户不在线",name);
+        }
         if(usercheck.getPassword().equals(password)){
             Map<String, Object> map = new HashMap<>(8);
             map.put("userId", usercheck.getId());

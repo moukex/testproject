@@ -52,12 +52,15 @@ public class UseronlineServiceImpl implements UseronlineService {
         if("".equals(userQuery.getCode())&& "".equals(userQuery.getName()) && null==userQuery.getOnlineTime() && null==userQuery.getOfflineTime())
         {
             try {
-                return onlineUserEntityMapper.selectAll();
+                Example e2 = new Example(OnlineUserEntity.class);
+                e2.orderBy("status").desc();
+                return onlineUserEntityMapper.selectByExample(e2);
             }catch (Exception ex){
                 throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
             }
         }else{
             try{
+                e.orderBy("status").desc();
                 return onlineUserEntityMapper.selectByExample(e);
             }catch (Exception ex){
                 throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
@@ -107,12 +110,34 @@ public class UseronlineServiceImpl implements UseronlineService {
         Example example = new Example(OnlineUserEntity.class);
         example.createCriteria().andEqualTo("id", onlineuserid);
         try{
-            example.orderBy("status").desc();
             return onlineUserEntityMapper.selectOneByExample(example);
         }
         catch (Exception e){
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
+    }
+    /**
+     * @Author moukex
+     * @Version  1.0
+     * @Description 判断用户是否在线
+     * @param userid
+     * @Return  true or false
+     */
+    public boolean judgeStatus(Long userid){
+        Example example = new Example(OnlineUserEntity.class);
+        example.createCriteria().andEqualTo("userId", userid);
+        try{
+            List<OnlineUserEntity> onlineUserEntities=onlineUserEntityMapper.selectByExample(example);
+            for(OnlineUserEntity item:onlineUserEntities){
+                if(item.getStatus()){
+                    return true;
+                }
+            }
+        }
+        catch (Exception e){
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+        }
+        return false;
     }
 
 
