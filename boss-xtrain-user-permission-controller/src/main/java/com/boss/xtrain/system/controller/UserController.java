@@ -9,11 +9,9 @@ import com.boss.xtrain.exception.type.BusinessException;
 import com.boss.xtrain.system.UserApi;
 import com.boss.xtrain.system.center.dao.entity.ResourceEntity;
 import com.boss.xtrain.system.center.dao.entity.UserEntity;
+import com.boss.xtrain.system.center.dao.mapper.CompanyEntityMapper;
 import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
-import com.boss.xtrain.system.center.service.service.ResourceService;
-import com.boss.xtrain.system.center.service.service.RoleService;
-import com.boss.xtrain.system.center.service.service.UserService;
-import com.boss.xtrain.system.center.service.service.UseronlineService;
+import com.boss.xtrain.system.center.service.service.*;
 import com.boss.xtrain.user.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +43,8 @@ public class UserController extends AbstractController implements UserApi {
     private ResourceService resourceService;
     @Autowired
     private UseronlineService useronlineService;
+    @Autowired
+    private CompanyService companyService;
 
 
     /**
@@ -94,7 +94,7 @@ public class UserController extends AbstractController implements UserApi {
         String name=user.getName();
         Long companyid=user.getCompanyId();
         Long departmentid=user.getDepartment();
-        Long organizationId=user.getOrganizationId();
+        Long organizationId=companyService.getOrganizationIdbyId(companyid);
         Map<String, Object> remap = new HashMap<>(8);
         remap.put("roles",roles);
         remap.put("name",name);

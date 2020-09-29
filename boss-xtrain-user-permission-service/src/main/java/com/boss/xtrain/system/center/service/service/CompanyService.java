@@ -16,4 +16,7 @@ public interface CompanyService {
      * @return CompanyEntity 公司对象
      **/
     CompanyEntity getCompanyById(Long companyid);
+
+
+    Long getOrganizationIdbyId(Long companyid);
 }

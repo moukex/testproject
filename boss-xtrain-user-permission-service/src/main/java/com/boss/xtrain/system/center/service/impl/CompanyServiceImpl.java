@@ -44,4 +44,10 @@ public class CompanyServiceImpl implements CompanyService {
             throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
         }
     }
+
+    @Override
+    public Long getOrganizationIdbyId(Long companyid) {
+        CompanyEntity companyEntity=getCompanyById(companyid);
+        return companyEntity.getOrganizationId();
+    }
 }
