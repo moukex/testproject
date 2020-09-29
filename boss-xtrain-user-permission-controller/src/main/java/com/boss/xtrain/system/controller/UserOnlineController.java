@@ -17,7 +17,6 @@ import com.boss.xtrain.system.center.service.service.UseronlineService;
 import com.boss.xtrain.user.utils.CommonPage;
 import com.boss.xtrain.user.utils.SpringContextUtil;
 import com.boss.xtrain.user.utils.webUtils;
-import com.sun.org.apache.xpath.internal.objects.XBoolean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
@@ -44,10 +43,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/user/onlineuser")
 public class UserOnlineController extends AbstractController {
 
-    UseronlineService useronlineService;
+    private UseronlineService useronlineService;
 
 
-    UserService userService;
+    private UserService userService;
 
     private static ConcurrentHashMap<String, Long> webSocketMap = new ConcurrentHashMap<>();
 

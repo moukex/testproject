@@ -56,14 +56,14 @@ public class UseronlineServiceImpl implements UseronlineService {
                 e2.orderBy("status").desc();
                 return onlineUserEntityMapper.selectByExample(e2);
             }catch (Exception ex){
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
             }
         }else{
             try{
                 e.orderBy("status").desc();
                 return onlineUserEntityMapper.selectByExample(e);
             }catch (Exception ex){
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
             }
         }
     }
@@ -79,7 +79,7 @@ public class UseronlineServiceImpl implements UseronlineService {
         try{
             return onlineUserEntityMapper.insert(onlineUserEntity);
         }catch (Exception ex){
-            throw new ServiceException(DataCode.BASE_DATA_INSERT_EXCEPTION.getCode(),ex.getMessage(),ex);
+            throw new ServiceException(DataCode.BASE_DATA_INSERT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
         }
     }
 
@@ -93,7 +93,7 @@ public class UseronlineServiceImpl implements UseronlineService {
         try{
             return onlineUserEntityMapper.updateByPrimaryKey(onlineUserEntity);
         }catch (Exception ex){
-            throw new ServiceException(DataCode.BASE_DATA_UPDATE_EXCEPTION.getCode(),ex.getMessage(),ex);
+            throw new ServiceException(DataCode.BASE_DATA_UPDATE_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
         }
     }
 
@@ -113,7 +113,7 @@ public class UseronlineServiceImpl implements UseronlineService {
             return onlineUserEntityMapper.selectOneByExample(example);
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
     /**
@@ -135,7 +135,7 @@ public class UseronlineServiceImpl implements UseronlineService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
         return false;
     }

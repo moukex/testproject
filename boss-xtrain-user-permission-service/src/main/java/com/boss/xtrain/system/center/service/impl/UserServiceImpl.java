@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
     /**
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
     /**

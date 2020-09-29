@@ -44,7 +44,7 @@ public class ResourceServiceImpl implements ResourceService {
             resources = userEntityMapper.selectResourcebyUserId(userid);
             return resources;
         } catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     };
     /**
@@ -63,7 +63,7 @@ public class ResourceServiceImpl implements ResourceService {
             return resourceEntityMapper.selectOneByExample(example);
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e);
         }
     }
 
@@ -88,7 +88,7 @@ public class ResourceServiceImpl implements ResourceService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
 }

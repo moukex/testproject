@@ -41,7 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
 

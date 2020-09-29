@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
     /**
@@ -70,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
            return userEntityMapper.selectRolebyUserId(userId);
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
     /**
@@ -95,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
             return roles;
         }
         catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),e.getMessage(),e);
+            throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),e);
         }
     }
 }

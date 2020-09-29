@@ -56,14 +56,14 @@ public class DictionaryServiceImpl implements DictionaryService {
                 e2.orderBy("updatedTime").desc();
                 return dictionaryEntityMapper.selectByExample(e2);
             }catch (Exception ex){
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
             }
         }else{
             try{
                 e.orderBy("updatedTime").desc();
                 return dictionaryEntityMapper.selectByExample(e);
             }catch (Exception ex){
-                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),ex.getMessage(),ex);
+                throw new ServiceException(DataCode.BASE_DATA_SELECT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
             }
         }
     }
@@ -85,7 +85,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         try{
             return dictionaryEntityMapper.insertSelective(dictionaryEntity);
         }catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_INSERT_EXCEPTION,e);
+            throw new ServiceException(DataCode.BASE_DATA_INSERT_EXCEPTION.getCode(),DataCode.BASE_DATA_INSERT_EXCEPTION.getMessage(),e);
         }
 
     }
@@ -98,7 +98,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         try{
             return dictionaryEntityMapper.updateByExample(dictionaryEntity,example);
         }catch (Exception e){
-            throw new ServiceException(DataCode.BASE_DATA_UPDATE_EXCEPTION,e);
+            throw new ServiceException(DataCode.BASE_DATA_UPDATE_EXCEPTION.getCode(),DataCode.BASE_DATA_UPDATE_EXCEPTION.getMessage(),e);
         }
 
     }

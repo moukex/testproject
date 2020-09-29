@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/user/dictionary")
 public class DictionaryController extends AbstractController implements DictionaryApi {
     @Autowired
-    DictionaryService dictionaryService;
+    private DictionaryService dictionaryService;
 
     /**
      * @Author moukex
