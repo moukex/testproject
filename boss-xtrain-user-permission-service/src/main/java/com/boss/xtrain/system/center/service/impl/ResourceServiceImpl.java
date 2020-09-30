@@ -9,7 +9,7 @@ import com.boss.xtrain.system.center.dao.mapper.UserEntityMapper;
 import com.boss.xtrain.system.center.service.service.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Slf4j
-@Component
+@Service
 public class ResourceServiceImpl implements ResourceService {
     @Resource
     ResourceEntityMapper resourceEntityMapper;

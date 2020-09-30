@@ -6,7 +6,7 @@ import com.boss.xtrain.system.center.dao.entity.DepartmentEntity;
 import com.boss.xtrain.system.center.dao.mapper.DepartmentEntityMapper;
 import com.boss.xtrain.system.center.service.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @Version: 1.0
  */
 @Slf4j
-@Component
+@Service
 public class DepartmentServiceImpl implements DepartmentService{
 
     @Resource

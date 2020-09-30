@@ -8,7 +8,7 @@ import com.boss.xtrain.system.center.pojo.dto.dictionary.DeleteDictionaryDTO;
 import com.boss.xtrain.system.center.pojo.query.DictionaryQuery;
 import com.boss.xtrain.system.center.service.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ import java.util.List;
  * @Date: 2020/9/20 20:27
  * @Version: 1.0
  */
-@Component
+@Service
 public class DictionaryServiceImpl implements DictionaryService {
 
     @Resource

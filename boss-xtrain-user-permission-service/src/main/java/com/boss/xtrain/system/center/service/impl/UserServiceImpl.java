@@ -8,7 +8,7 @@ import com.boss.xtrain.system.center.service.service.UserService;
 import com.boss.xtrain.user.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.*;
@@ -21,7 +21,7 @@ import java.util.*;
  * @Version: 1.0
  */
 @Slf4j
-@Component
+@Service
 public class UserServiceImpl implements UserService {
     /**
      * 设置token中的参数

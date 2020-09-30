@@ -11,7 +11,7 @@ import com.boss.xtrain.system.center.dao.mapper.UserRoleEntityMapper;
 import com.boss.xtrain.system.center.service.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Slf4j
-@Component
+@Service
 public class RoleServiceImpl implements RoleService {
     @Resource
     RoleEntityMapper roleEntityMapper;

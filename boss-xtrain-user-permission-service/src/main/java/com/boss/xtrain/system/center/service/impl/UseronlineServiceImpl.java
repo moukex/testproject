@@ -7,7 +7,7 @@ import com.boss.xtrain.system.center.dao.mapper.OnlineUserEntityMapper;
 import com.boss.xtrain.system.center.pojo.query.UserQuery;
 import com.boss.xtrain.system.center.service.service.UseronlineService;
 import com.github.pagehelper.PageHelper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -19,7 +19,7 @@ import java.util.List;
  * @Date: 2020/9/10 17:04
  * @Version: 1.0
  */
-@Component
+@Service
 public class UseronlineServiceImpl implements UseronlineService {
     @Resource
     OnlineUserEntityMapper onlineUserEntityMapper;
