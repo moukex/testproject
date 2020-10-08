@@ -82,12 +82,13 @@ public class UseronlineServiceImpl implements UseronlineService {
             throw new ServiceException(DataCode.BASE_DATA_INSERT_EXCEPTION.getCode(),DataCode.BASE_DATA_SELECT_EXCEPTION.getMessage(),ex);
         }
     }
-
-    @Override
-    public int delete(OnlineUserEntity onlineUserEntity) {
-        return 0;
-    }
-
+    /**
+     * @Author moukex
+     * @Version  1.0
+     * @Description 更新在线用户
+     * @param onlineUserEntity
+     * @Return int
+     */
     @Override
     public int update(OnlineUserEntity onlineUserEntity) {
         try{

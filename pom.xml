@@ -108,6 +108,16 @@
             <!--jackson end-->
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <!--用于启动springBoot的插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.3.RELEASE</version>
+            </plugin>
+        </plugins>
+    </build>
 
 
 

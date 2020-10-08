@@ -22,7 +22,6 @@ public interface UseronlineService {
      **/
     int insert(OnlineUserEntity onlineUserEntity);
 
-    int delete(OnlineUserEntity onlineUserEntity);
     /**
      * 更新用户状态，表示用户离线
      **/

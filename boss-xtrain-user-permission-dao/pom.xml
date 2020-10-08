@@ -75,6 +75,11 @@
                     </dependency>
                 </dependencies>
             </plugin>
+                    <!--用于启动springBoot的插件-->
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
         </plugins>
     </build>
 </project>
