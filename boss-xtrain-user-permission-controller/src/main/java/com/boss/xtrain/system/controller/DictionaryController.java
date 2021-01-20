@@ -14,6 +14,8 @@ import com.boss.xtrain.system.center.pojo.query.DictionaryQuery;
 import com.boss.xtrain.system.center.service.service.DictionaryService;
 import com.boss.xtrain.user.utils.CommonPage;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +31,7 @@ import java.util.List;
  * @Date: 2020/9/20 20:44
  * @Version: 1.0
  */
+@Api(tags="数据字典controller")
 @Slf4j
 @RestController
 @RequestMapping("/user/dictionary")
@@ -43,7 +46,7 @@ public class DictionaryController extends AbstractController implements Dictiona
      * @param commonRequest
      * @Return 标准应答
      */
-
+    @ApiOperation("查找字典")
     @ApiLog
     @PostMapping("/seachdictionary")
     public CommonResponse seachDictionaryWithPage(@RequestBody CommonRequest<DictionaryQuery> commonRequest){
@@ -60,7 +63,7 @@ public class DictionaryController extends AbstractController implements Dictiona
      * @param commonRequest
      * @Return 标准应答
      */
-
+    @ApiOperation("删除字典")
     @ApiLog
     @PostMapping("/deletedictionary")
     public CommonResponse deleteDictionary(@RequestBody CommonRequest<List<DeleteDictionaryDTO>> commonRequest){
@@ -75,6 +78,7 @@ public class DictionaryController extends AbstractController implements Dictiona
      * @param commonRequest
      * @Return 标准应答
      */
+    @ApiOperation("新增字典")
     @ApiLog
     @PostMapping("/adddictionary")
     public CommonResponse addDictionary(@RequestBody CommonRequest<DictionaryDTO> commonRequest){
@@ -106,6 +110,7 @@ public class DictionaryController extends AbstractController implements Dictiona
      * @param commonRequest
      * @Return 标准应答
      */
+    @ApiOperation("更新字典")
     @ApiLog
     @PostMapping("/updatedictionary")
     public CommonResponse updateDictionary(@RequestBody CommonRequest<DictionaryDTO> commonRequest){

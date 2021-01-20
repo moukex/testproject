@@ -17,6 +17,8 @@ import com.boss.xtrain.system.center.service.service.UseronlineService;
 import com.boss.xtrain.user.utils.CommonPage;
 import com.boss.xtrain.user.utils.SpringContextUtil;
 import com.boss.xtrain.user.utils.webUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 2020/9/10 17:15
  * @Version: 1.0
  */
+@Api(tags="用户在线controller")
 @Slf4j
 @RestController
 @ServerEndpoint(value = "/user/websocket/{userOnlineInfoId}")
@@ -57,6 +60,7 @@ public class UserOnlineController extends AbstractController {
      * @param userOnlineInfoId 用户id
      * @param session
      */
+    @ApiOperation("websocket开启连接时运行方法")
     @OnOpen
     public void onOpen(@PathParam(value = "userOnlineInfoId") Long userOnlineInfoId, Session session)  {
         //获取ip地址
@@ -100,6 +104,7 @@ public class UserOnlineController extends AbstractController {
      * @Version  1.0
      * @Description websocket连接错误中断时发送错误消息
      */
+    @ApiOperation("websocket运行出错时运行方法")
     @OnError
     public void onError(Session session, Throwable error) {
         log.error("webSocket运行发生错误！",error);
@@ -111,6 +116,7 @@ public class UserOnlineController extends AbstractController {
      * @Description 连接中断即为用户下线，添加下线时间以及设置状态status为0；
      * @param userOnlineInfoId 用户id
      */
+    @ApiOperation("websocket关闭连接时运行的方法")
     @OnClose
     public void onClose(@PathParam(value = "userOnlineInfoId") Long userOnlineInfoId){
         //动态获取spring上下文
@@ -142,6 +148,7 @@ public class UserOnlineController extends AbstractController {
      * @param commonRequest 标准请求
      * @Return CommonResponse 标准应答
      */
+    @ApiOperation("获取用户在线表")
     @PostMapping("/getOnLineUser")
     public CommonResponse infouseronlineWithPage(@RequestBody CommonRequest<UserQuery> commonRequest){
         //动态获取spring上下文
@@ -162,6 +169,7 @@ public class UserOnlineController extends AbstractController {
      * @param commonRequest 需要强制下线的用户在线id
      * @Return CommonResponse 标准应答
      */
+    @ApiOperation("强制下线")
     @PostMapping("/logoutOnLineUser")
     public CommonResponse loginout(@RequestBody CommonRequest<OfflineDTO> commonRequest){
         //动态获取spring上下文
@@ -192,6 +200,7 @@ public class UserOnlineController extends AbstractController {
      * @param userid
      * @Return true or false
      */
+    @ApiOperation("判断在线状态")
     @PostMapping("/judgeonline")
     public Boolean judgeOnline(Long userid){
     return useronlineService.judgeStatus(userid);

@@ -14,6 +14,7 @@ import com.boss.xtrain.system.center.pojo.dto.userlogin.UserLoginDTO;
 import com.boss.xtrain.system.center.service.service.*;
 import com.boss.xtrain.user.utils.JwtUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,7 @@ public class UserController extends AbstractController implements UserApi {
      * @param commonRequest 标准请求
      * @Return CommonResponse 标准应答
      */
+    @ApiOperation("登录校验")
     @ApiLog
     @PostMapping("/login")
     public CommonResponse login(@RequestBody CommonRequest<UserLoginDTO> commonRequest) {
@@ -82,6 +84,7 @@ public class UserController extends AbstractController implements UserApi {
      * @param
      * @Return CommonResponse
      */
+    @ApiOperation("获取用户信息")
     @ApiLog
     @GetMapping("/getinfo")
     public CommonResponse getinfo(String token){
@@ -112,6 +115,7 @@ public class UserController extends AbstractController implements UserApi {
      * @param token 角色令牌
      * @Return CommonResponse
      */
+    @ApiOperation("获取资源列表")
     @ApiLog
     @GetMapping("/getlist")
     public  CommonResponse getList(String token) {
@@ -142,6 +146,7 @@ public class UserController extends AbstractController implements UserApi {
      * @param
      * @Return CommonResponse
      */
+    @ApiOperation("登出")
     @ApiLog
     @PostMapping("/logout")
     public CommonResponse logout(){
@@ -157,6 +162,7 @@ public class UserController extends AbstractController implements UserApi {
      * @param url 访问路径
      * @Return
      */
+    @ApiOperation("判断用户在线状态")
     @ApiLog
     @PostMapping("/judgeuser")
     public boolean judgePermission(Long userid,String url){
